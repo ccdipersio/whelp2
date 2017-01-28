@@ -1,0 +1,19 @@
+LAYOUT 1:
+            1      876
+           32      9 45
+          54 9      23
+           678      1
+{
+    "NAME": "DUNGEON"
+    "ROOMS": [
+        {"index": 1, "name": "ONE", "item": 1, "enemy": 5, "doors": [{"left": -1, "forward": 2, "right": -1, "backward": -1}]}
+        {"index": 2, "name": "TWO", "item": 2, "enemy": 5, "doors": [{"left": -1, "forward": -1, "right": 3, "backward": -1}]}
+        {"index": 3, "name": "THREE", "item": 3, "enemy": 5, "doors": [{"left": 2, "forward": 4, "right": -1, "backward": -1}]}
+        {"index": 4, "name": "FOUR", "item": 4, "enemy": 5, "doors": [{"left": -1, "forward": 6, "right": 5, "backward": 3}]}
+        {"index": 5, "name": "FIVE", "item": 5, "enemy": 5, "doors": [{"left": 4, "forward": -1, "right": -1, "backward":-1}]}
+        {"index": 6, "name": "SIX", "item": 1, "enemy": 5, "doors": [{"left": 7, "forward": -1, "right": -1, "backward": 4}]}
+        {"index": 7, "name": "SEVEN", "item": 2, "enemy": 5, "doors": [{"left": 8, "forward": -1, "right": 6, "backward": -1}]}
+        {"index": 8, "name": "EIGHT", "item": 3, "enemy": 5, "doors": [{"left": -1, "forward": -1, "right": 7, "backward": 9}]}
+        {"index": 9, "name": "NINE", "item": 4, "enemy": 5, "doors": [{"left": -1, "forward": 8, "right": -1, "backward": -1}]}
+        ]
+}

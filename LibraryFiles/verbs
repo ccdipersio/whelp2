@@ -1,0 +1,10 @@
+take,1
+go,2
+move,2
+look,3
+view,3
+select,4
+use,4
+fight,5
+attack,5
+equip,8
