@@ -9,6 +9,9 @@ class Character:
         3: 'KNIGHT',
         4: 'SAGE',
         5: 'GOBLIN',
+        6: 'ORC',
+        7: 'OGRE',
+        8: 'DRAGON',
     }
 
 
@@ -110,6 +113,43 @@ class Enemy(Character):
             self.accuracy = 4
             self.experience_to_pass = 10
             self.item_held = randrange(1, 4)
+        elif self.name == 'ORC':
+            self.hp = 15
+            self.mp = 5
+            self.attack = 5
+            self.defense = 2
+            self.magic_attack = 5
+            self.magic_defense = 2
+            self.speed = 4
+            self.evasion = 4
+            self.accuracy = 6
+            self.experience_to_pass = 15
+            self.item_held = randrange(1, 4)
+        elif self.name == 'OGRE':
+            self.hp = 20
+            self.mp = 8
+            self.attack = 7
+            self.defense = 4
+            self.magic_attack = 0
+            self.magic_defense = 3
+            self.speed = 5
+            self.evasion = 5
+            self.accuracy = 8
+            self.experience_to_pass = 20
+            self.item_held = randrange(1, 4)
+        elif self.name == 'DRAGON':
+            self.hp = 30
+            self.mp = 10
+            self.attack = 15
+            self.defense = 10
+            self.magic_attack = 18
+            self.magic_defense = 10
+            self.speed = 10
+            self.evasion = 8
+            self.accuracy = 12
+            self.experience_to_pass = 40
+            self.item_held = randrange(1, 6)
+
 
     # GET ENEMY MOVE FOR BATTLES
     def enemy_move(self):

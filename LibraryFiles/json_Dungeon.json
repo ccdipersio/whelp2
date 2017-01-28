@@ -5,14 +5,15 @@
     {
       "index": 0,
       "name": "ONE",
-      "item": 1,
+      "item": 4,
       "enemy": 5,
       "doors": {
         "left": -1,
         "forward": 1,
         "right": -1,
         "backward": -1
-      }
+      },
+      "description": "this is the first room"
     },
     {
       "index": 1,
@@ -24,31 +25,34 @@
         "forward": -1,
         "right": 2,
         "backward": 0
-      }
+      },
+      "description": "this is the second room"
     },
     {
       "index": 2,
       "name": "THREE",
       "item": 3,
-      "enemy": 5,
+      "enemy": 6,
       "doors": {
         "left": 1,
         "forward": 3,
         "right": -1,
         "backward": -1
-      }
+      },
+      "description": "this is the third room"
     },
     {
       "index": 3,
       "name": "FOUR",
       "item": 4,
-      "enemy": 5,
+      "enemy": 6,
       "doors": {
         "left": -1,
         "forward": 5,
         "right": 4,
         "backward": 3
-      }
+      },
+      "description": "this is the fourth room"
     },
     {
       "index": 4,
@@ -60,55 +64,60 @@
         "forward": -1,
         "right": -1,
         "backward": -1
-      }
+      },
+      "description": "this is the fifth room"
     },
     {
       "index": 5,
       "name": "SIX",
       "item": 1,
-      "enemy": 5,
+      "enemy": 6,
       "doors": {
         "left": 6,
         "forward": -1,
         "right": -1,
         "backward": 3
-      }
+      },
+      "description": "this is the sixth room"
     },
     {
       "index": 6,
       "name": "SEVEN",
       "item": 2,
-      "enemy": 5,
+      "enemy": 7,
       "doors": {
         "left": 7,
         "forward": -1,
         "right": 5,
         "backward": -1
-      }
+      },
+      "description": "this is the seventh room"
     },
     {
       "index": 7,
       "name": "EIGHT",
       "item": 3,
-      "enemy": 5,
+      "enemy": 7,
       "doors": {
         "left": -1,
         "forward": -1,
         "right": 6,
         "backward": 8
-      }
+      },
+      "description": "this is the eighth room"
     },
     {
       "index": 8,
       "name": "NINE",
       "item": 4,
-      "enemy": 5,
+      "enemy": 8,
       "doors": {
         "left": -1,
         "forward": 7,
         "right": -1,
         "backward": -1
-      }
+      },
+      "description": "this is the ninth room"
     }
   ]
 }

@@ -319,7 +319,7 @@ class TextParser:
                         return 12  # RETURN DEAD INDEX
 
             elif self.words[0] == 8:  # "EQUIP" COMMAND
-                if self.words[1] == -1:  # PASSED ITEM THROUGH TO COMMAND
+                if self.words[1] != -1:  # PASSED ITEM THROUGH TO COMMAND
                     index_in_inventory = self.check_inventory(self.words[1], player.inventory)
                     if index_in_inventory == -1:
                         continue
@@ -342,6 +342,7 @@ class TextParser:
     # PRINT ROOM DETAILS
     def print_room(self, room):
         print("In " + room["name"] + "...")
+        print(room["description"])
         if room["item"] == 0:
             print("\tThere isn't an item here...")
         else:
