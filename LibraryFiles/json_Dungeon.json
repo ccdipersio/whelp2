@@ -5,13 +5,17 @@
     {
       "index": 0,
       "name": "ONE",
-      "item": 4,
+      "item": 3,
       "enemy": 5,
       "doors": {
         "left": -1,
         "forward": 1,
         "right": -1,
-        "backward": -1
+        "backward": -1,
+        "left_locked": 0,
+        "forward_locked": 1,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the first room"
     },
@@ -24,7 +28,11 @@
         "left": -1,
         "forward": -1,
         "right": 2,
-        "backward": 0
+        "backward": 0,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the second room"
     },
@@ -37,7 +45,11 @@
         "left": 1,
         "forward": 3,
         "right": -1,
-        "backward": -1
+        "backward": -1,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the third room"
     },
@@ -50,7 +62,11 @@
         "left": -1,
         "forward": 5,
         "right": 4,
-        "backward": 3
+        "backward": 3,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the fourth room"
     },
@@ -63,7 +79,11 @@
         "left": 3,
         "forward": -1,
         "right": -1,
-        "backward": -1
+        "backward": -1,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the fifth room"
     },
@@ -76,7 +96,11 @@
         "left": 6,
         "forward": -1,
         "right": -1,
-        "backward": 3
+        "backward": 3,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the sixth room"
     },
@@ -89,7 +113,11 @@
         "left": 7,
         "forward": -1,
         "right": 5,
-        "backward": -1
+        "backward": -1,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the seventh room"
     },
@@ -102,7 +130,11 @@
         "left": -1,
         "forward": -1,
         "right": 6,
-        "backward": 8
+        "backward": 8,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the eighth room"
     },
@@ -115,7 +147,11 @@
         "left": -1,
         "forward": 7,
         "right": -1,
-        "backward": -1
+        "backward": -1,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
       },
       "description": "this is the ninth room"
     }

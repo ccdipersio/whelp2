@@ -17,20 +17,15 @@ class Dungeon:
         while control_index != 12:  # 12 = DEATH
             control_index = parser.parse_json_room(self.json_dungeon["ROOMS"][current_room], player)
             if 19 < control_index < 24:  # "MOVE" COMMANDS
-                direction = self.convert_integer_to_direction(control_index - 20)  # REMOVE 20 AND CONVERT TO DIRECTION
+                direction = parser.convert_integer_to_direction(control_index - 20)  # REMOVE 20 AND CONVERT TO DIRECTION
+                locked = direction + "_locked"  # CREATE STRING TO CHECK FOR LOCKED DOOR
                 if self.json_dungeon["ROOMS"][current_room]["doors"][direction] == -1:  # CHECK FOR BAD MOVE
                     print("Cannot move that way...")
+                    continue
+                elif self.json_dungeon["ROOMS"][current_room]["doors"][locked] == 1:  # CHECK FOR LOCKED DOOR
+                    print(direction + " door is locked!\n")
                     continue
                 else:
                     current_room = self.json_dungeon["ROOMS"][current_room]["doors"][direction]  # MOVE
 
-    @staticmethod
-    def convert_integer_to_direction(direction_index):
-        if direction_index == 0:
-            return "left"
-        elif direction_index == 1:
-            return "forward"
-        elif direction_index == 2:
-            return "right"
-        elif direction_index == 3:
-            return "backward"
+

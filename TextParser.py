@@ -294,16 +294,36 @@ class TextParser:
                         continue
                     else:
                         item_strength = self.item_strengths[self.words[1]]  # GET ITEM STRENGTH
-                        if item_strength <= 0:  # CAN'T USE ITEM IN BATTLE
+                        if item_strength < 0:  # CAN'T USE ITEM IN ROOM
                             print("Can't use that item right now...")
                             continue
                         else:  # APPLY ITEM EFFECT
-                            print(str(self.reverse_lists[1][self.words[1]]) + " used!")
-                            if 0 < item_strength < 100:  # APPLY TO HP
-                                player.hp += item_strength
-                            elif 99 < item_strength < 200:  # APPLY TO MP
-                                player.mp += item_strength - 100
-                            del player.inventory[index_in_inventory]  # REMOVE ITEM FROM INVENTORY
+                            if self.words[1] == 3:  # USED KEY
+                                if self.words[5] != 3:
+                                    print("Can only use a key on a door...")
+                                    continue
+                                elif self.words[2] == -1:  # NO DIRECTION PASSED
+                                    print("Need to specify a which door on which to use the key...")
+                                    continue
+                                elif room["doors"][self.convert_integer_to_direction(self.words[2]) + "_locked"] == 0:  # DOOR ISN'T LOCKED
+                                    print("This door isn't locked...")
+                                    continue
+                                else:  # UNLOCK DOOR
+                                    print(self.convert_integer_to_direction(self.words[2]) + " door is unlocked!")
+                                    room["doors"][self.convert_integer_to_direction(self.words[2]) + "_locked"] = 0
+                                    del player.inventory[index_in_inventory]
+
+                            elif self.words[1] % 4 == 0 or self.words[1] % 5 == 0:
+                                print("Must equip " + str(self.reverse_lists[1][self.words[1]]) + "...")
+                                continue
+
+                            else:  # USED POTION
+                                print(str(self.reverse_lists[1][self.words[1]]) + " used!")
+                                if 0 < item_strength < 100:  # APPLY TO HP
+                                    player.hp += item_strength
+                                elif 99 < item_strength < 200:  # APPLY TO MP
+                                    player.mp += item_strength - 100
+                                del player.inventory[index_in_inventory]  # REMOVE ITEM FROM INVENTORY
 
             elif self.words[0] == 5:  # "FIGHT" COMMAND
                 if room["enemy"] == 0:  # NO ENEMY
@@ -384,3 +404,14 @@ class TextParser:
         elif mode == 2:
             print("POSSIBLE COMMANDS IN BATTLE\n\tVIEW + INVENTORY/STATS\n\tUSE/SELECT + ITEM IN INVENTORY\n\t"
                   "BATTLE COMMAND")
+
+    @staticmethod
+    def convert_integer_to_direction(direction_index):
+        if direction_index == 0:
+            return "left"
+        elif direction_index == 1:
+            return "forward"
+        elif direction_index == 2:
+            return "right"
+        elif direction_index == 3:
+            return "backward"
