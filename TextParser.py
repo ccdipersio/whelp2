@@ -8,7 +8,15 @@ class TextParser:
         relative_path = os.path.dirname(__file__)  # RELATIVE FILE PATH TO USE TO OPEN FILES LATER
         lib = "LibraryFiles"  # SHORTENING OF NAME OF LIBRARY FILES FOLDER TO FIT WITH PEP 8 CONVENTIONS
 
-        self.files = []  # LIST FOR FILES
+        self.files = [  # LIST FOR FILES
+            "verbs",
+            "items",
+            "directions",
+            "quantities",
+            "locations",
+            "objects",
+            "battle_commands"
+        ]
         self.lists = {  # DICTIONARY OF DICTIONARIES FOR LISTS
             0: {},  # VERBS
             1: {},  # ITEMS
@@ -40,24 +48,15 @@ class TextParser:
         }
         self.item_strengths = {}
 
-        self.files.append(open(os.path.join(relative_path, lib, "verbs"), "r"))  # VERBS FILE
-        self.files.append(open(os.path.join(relative_path, lib, "items"), "r"))  # ITEMS FILE
-        self.files.append(open(os.path.join(relative_path, lib, "directions"), "r"))  # DIRECTIONS FILE
-        self.files.append(open(os.path.join(relative_path, lib, "quantities"), "r"))  # QUANTITIES FILE
-        self.files.append(open(os.path.join(relative_path, lib, "locations"), "r"))  # LOCATIONS FILE
-        self.files.append(open(os.path.join(relative_path, lib, "objects"), "r"))  # OBJECTS FILE
-        self.files.append(open(os.path.join(relative_path, lib, "battle_commands"), "r"))  # BATTLE COMMANDS
-
-        for index in range(len(self.files)):  # ITERATE THROUGH FILES LIST
-            for line in self.files[index]:  # ITERATION THROUGH LINES IN CURRENT LIST
-                line = line.strip()  # REMOVE '\n'
-                split_line = line.split(",")  # SPLIT ALONG COMMA
-                self.lists[index][split_line[0]] = int(split_line[1])  # COPY CONTENTS INTO CURRENT DICTIONARY
-                self.reverse_lists[index][int(split_line[1])] = split_line[0]  # COPY WORD INTO REVERSE DICTIONARIES
-                if index == 1:
-                    self.item_strengths[int(split_line[1])] = int(split_line[2])
-        for file in self.files:
-            file.close()
+        for index in range(len(self.files)):  # ITERATE THROUGH FILE NAMES LIST
+            with open(os.path.join(relative_path, lib, self.files[index]), "r") as file:  # OPEN FILE
+                for line in file:  # ITERATE THROUGH LINES IN CURRENT LIST
+                    line = line.strip()  # REMOVE '\n'
+                    split_line = line.split(",")  # SPLIT ALONG COMMA
+                    self.lists[index][split_line[0]] = int(split_line[1])  # COPY CONTENTS INTO CURRENT DICTIONARY
+                    self.reverse_lists[index][int(split_line[1])] = split_line[0]  # COPY WORD INTO REVERSE DICTIONARY
+                    if index == 1:  # COPY ITEM STRENGTHS INTO ITEM STRENGTH DICTIONARY
+                        self.item_strengths[int(split_line[1])] = int(split_line[2])
 
     # RESET WORDS DICTIONARY
     def reset_words(self):
@@ -151,7 +150,6 @@ class TextParser:
                 if not player.process_player_move(player_move, enemy):
                     enemy.give_item(self, player)
                     return True
-
 
     # GET ROOM COMMAND (JSON)
     def parse_json_room(self, room, player):
@@ -300,7 +298,6 @@ class TextParser:
         if room["doors"]["backward"] != -1:
             print("\tCan move backward...")
 
-
     # CHECK IF ITEM IS IN INVENTORY
     @staticmethod
     def check_inventory(item_index, inventory):
@@ -325,6 +322,7 @@ class TextParser:
             print("POSSIBLE COMMANDS IN BATTLE\n\tVIEW + INVENTORY/STATS\n\tUSE/SELECT + ITEM IN INVENTORY\n\t"
                   "BATTLE COMMAND")
 
+    # CONVERT INTEGER 0 - 3 TO DIRECTION STRING
     @staticmethod
     def convert_integer_to_direction(direction_index):
         if direction_index == 0:
