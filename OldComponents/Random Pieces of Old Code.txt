@@ -1,0 +1,92 @@
+# GET ROOM COMMAND (OLD - PRE-JSON)
+    def parse_room(self, room, player):
+        while True:
+            room.print_room(self)
+            self.get_new_string()
+
+            if self.words[7] == 1:
+                self.help_me(1)
+                continue
+            elif self.words[0] == 1:  # "TAKE" COMMAND
+                if room.item_index == 0:  # NO ITEM
+                    print("No item to take...")
+                    continue
+                elif self.words[1] == -1:  # INVALID ITEM PASSED
+                    print("Didn't understand item's name...")
+                    continue
+                elif self.words[1] != room.item_index:
+                    print("That item isn't here...")
+                    continue
+                else:  # ITEM PASSED IS GOOD
+                    player.inventory.append(room.item_index)  # ADD ITEM TO INVENTORY
+                    print(str(self.reverse_lists[1][room.item_index]) + " added to inventory!")
+                    room.item_index = 0  # REMOVE ITEM FROM ROOM
+                    continue
+
+            elif self.words[0] == 2:  # "MOVE" COMMAND
+                return 20 + self.words[2]  # RETURN "MOVE" COMMAND PLUS DIRECTION
+
+            elif self.words[0] == 3:  # "LOOK" COMMAND
+                if 0 < self.words[5] < 3:  # OBJECT PASSED IS GOOD
+                    if self.words[5] == 1:  # VIEW INVENTORY
+                        player.print_inventory(self)
+                    elif self.words[5] == 2:  # VIEW PLAYER STATS
+                        print(player)
+                else:  # INCORRECT OBJECT PASSED
+                    print(str(self.words[5]))
+                    print("Didn't understand what you wanted to look at...")
+                    continue
+
+            elif self.words[0] == 4:  # "SELECT" COMMAND
+                if self.words[1] == -1:
+                    print("Didn't understand item's name...")
+                else:
+                    index_in_inventory = self.check_inventory(self.words[1], player.inventory)
+                    if index_in_inventory == -1:
+                        continue
+                    else:
+                        item_strength = self.item_strengths[self.words[1]]  # GET ITEM STRENGTH
+                        if item_strength <= 0:  # CAN'T USE ITEM IN FIELD
+                            print("Can't use that item right now; try again...")
+                            continue
+                        else:  # APPLY ITEM EFFECT
+                            print(str(self.reverse_lists[1][self.words[1]]) + " used!")
+                            if 0 < item_strength < 100:  # APPLY TO HP
+                                player.hp += item_strength
+                            elif 99 < item_strength < 200:  # APPLY TO MP
+                                player.mp += item_strength - 100
+                            del player.inventory[index_in_inventory]  # REMOVE ITEM FROM INVENTORY
+
+            elif self.words[0] == 5:  # "FIGHT" COMMAND
+                if room.enemy_index == 0:  # NO ENEMY
+                    print("no enemy to fight...")
+                    continue
+                else:  # ENEMY PRESENT
+                    winner = room.battle_set(self, player)
+                    if winner:
+                        print("Winner!")
+                        room.enemy_index = 0
+                    else:
+                        print("Game Over!")
+                        return 12
+
+            elif self.words[0] == 8:  # "EQUIP" COMMAND
+                if self.words[1] != -1:  # PASSED ITEM THROUGH TO COMMAND
+                    index_in_inventory = self.check_inventory(self.words[1], player.inventory)
+                    if index_in_inventory == -1:
+                        continue
+                    elif self.words[1] % 4 != 0 and self.words[1] % 5 != 5:
+                        print("Cannot equip this item...")
+                        continue
+                    else:
+                        if self.words[1] % 4 == 0:
+                            player.weapon = self.words[1]
+                            player.attack += player.weapon * 5
+                        elif self.words[1] % 5 == 0:
+                            player.armor = self.words[1]
+                            player.defense = player.armor * 5
+                        del player.inventory[index_in_inventory]
+
+            else:  # BAD COMMAND
+                print("Didn't understand command; try again...")
+                continue

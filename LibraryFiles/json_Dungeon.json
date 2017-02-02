@@ -22,7 +22,7 @@
     {
       "index": 1,
       "name": "TWO",
-      "item": 2,
+      "item": 4,
       "enemy": 5,
       "doors": {
         "left": -1,
@@ -39,7 +39,7 @@
     {
       "index": 2,
       "name": "THREE",
-      "item": 3,
+      "item": 4,
       "enemy": 6,
       "doors": {
         "left": 1,
