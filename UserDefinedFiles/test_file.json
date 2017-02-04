@@ -1,0 +1,40 @@
+{
+  "NAME": "ZXCV",
+  "SIZE": 2,
+  "ROOMS": [
+    {
+      "index": 0,
+      "name": "qwerqwer",
+      "item": 1,
+      "enemy": 5,
+      "doors": {
+        "left": 2,
+        "forward": -1,
+        "right": -1,
+        "backward": -1,
+        "left_locked": 1,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
+      },
+      "description": "sdfgsdfgsdfgsdfg"
+    },
+    {
+      "index": 1,
+      "name": "tyuityui",
+      "item": 2,
+      "enemy": 6,
+      "doors": {
+        "left": -1,
+        "forward": 3,
+        "right": -1,
+        "backward": -1,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
+      },
+      "description": "dfghdfghdfghdfhfdgh"
+    }
+  ]
+}
