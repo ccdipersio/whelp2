@@ -1,4 +1,4 @@
-import json
+import os
 
 
 class DungeonCreator:
@@ -85,10 +85,13 @@ class DungeonCreator:
                 else:
                     go = False
         print(self.createdDungeon["ROOMS"])
-        self.dump_data_to_file("/home/cdipersio/Documents/U. Washington Master's Degree Application/whelp2/DesignFiles/test_json_dungeon.json")
+        self.dump_data_to_file()
 
-    def dump_data_to_file(self, file_path):
-        file = open(file_path, "w")
+    def dump_data_to_file(self):
+        file_name = input("File Name (without extension): ")
+        file_name_ext = file_name + ".json"
+        relative_path = os.path.dirname(__file__)
+        file = open(os.path.join(relative_path, "UserDefinedFiles", file_name_ext), "w+")
         file.write('{\n')
         file.write('  "NAME": ' + '"' + self.createdDungeon["NAME"] + '",\n')
         file.write('  "SIZE": ' + str(self.createdDungeon["SIZE"]) + ',\n')
@@ -104,10 +107,14 @@ class DungeonCreator:
             file.write('        "forward": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["forward"]) + ',\n')
             file.write('        "right": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["right"]) + ',\n')
             file.write('        "backward": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["backward"]) + ',\n')
-            file.write('        "left_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["left_locked"]) + ',\n')
-            file.write('        "forward_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["forward_locked"]) + ',\n')
-            file.write('        "right_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["right_locked"]) + ',\n')
-            file.write('        "backward_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["backward_locked"]) + '\n')
+            file.write('        "left_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["left_locked"])
+                       + ',\n')
+            file.write('        "forward_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]
+                                                          ["forward_locked"]) + ',\n')
+            file.write('        "right_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["right_locked"])
+                       + ',\n')
+            file.write('        "backward_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]
+                                                           ["backward_locked"]) + '\n')
             file.write('      },\n')
             file.write('      "description": "' + self.createdDungeon["ROOMS"][index]["description"] + '"\n')
             if index == len(self.createdDungeon["ROOMS"]) - 1:
@@ -117,26 +124,3 @@ class DungeonCreator:
         file.write('  ]\n')
         file.write('}')
         file.close()
-
-'''
-"NAME": "DUNGEON",
-  "SIZE": 9,
-  "ROOMS": [
-    {
-      "index": 0,
-      "name": "ONE",
-      "item": 3,
-      "enemy": 5,
-      "doors": {
-        "left": -1,
-        "forward": 1,
-        "right": -1,
-        "backward": -1,
-        "left_locked": 0,
-        "forward_locked": 1,
-        "right_locked": 0,
-        "backward_locked": 0
-      },
-      "description": "this is the first room"
-    },
-'''
