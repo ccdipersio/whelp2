@@ -1,0 +1,39 @@
+{
+  "NAME": "ASDF",
+  "SIZE": 2,
+  "ROOMS": [
+    {
+      "index": 0,
+      "name": "qwer",
+      "item": 1,
+      "enemy": 5,
+      "doors": {
+        "left": 1,
+        "forward": 2,
+        "right": -1,
+        "backward": -1,
+        "left_locked": 1,
+        "forward_locked": 1,
+        "right_locked": 0,
+        "backward_locked": 0
+      },
+      "description": "zxcvzxcv"
+    },
+    {
+      "index": 1,
+      "name": "ghjkhgjk",
+      "item": 2,
+      "enemy": 6,
+      "doors": {
+        "left": -1,
+        "forward": 1,
+        "right": -1,
+        "backward": -1,
+        "left_locked": 0,
+        "forward_locked": 0,
+        "right_locked": 0,
+        "backward_locked": 0
+      },
+      "description": "cvbncvbncvbn"
+    }
+  ]}
