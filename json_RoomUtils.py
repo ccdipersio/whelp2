@@ -4,11 +4,21 @@ import re
 
 
 class Dungeon:
+    """The Dungeon class to initialize and control activities within."""
 
     def __init__(self, file_path):
+        """Initializes the dungeon.
+
+        The function opens the file, passes it to a function checking its validity, and if all is good to go, loads the
+            file using the JSON library.
+
+        Args:
+            file_path: A string for the path to a user defined file. It's possible to pass in "" rather than a full path
+                if the use doesn't want to define his or her own file.
+        """
         if file_path == "":
-            relative_path = os.path.dirname(__file__)  # RELATIVE FILE PATH TO USE TO OPEN FILES LATER
-            lib = "LibraryFiles"  # SHORTENING OF NAME OF LIBRARY FILES FOLDER TO FIT WITH PEP 8 CONVENTIONS
+            relative_path = os.path.dirname(__file__)
+            lib = "LibraryFiles"
             file_path = os.path.join(relative_path, lib, "json_Dungeon.json")
 
             line_number = self.verify_dungeon_file(file_path)
@@ -16,7 +26,7 @@ class Dungeon:
                 print("ERROR AT LINE " + str(line_number) + " in file at path " + file_path + "!!!")
                 return
             with open(file_path, "r") as file:
-                self.json_dungeon = json.load(file)  # LOAD IN JSON FILE
+                self.json_dungeon = json.load(file)
         else:
             line_number = self.verify_dungeon_file(file_path)
             if line_number != 0:
@@ -26,24 +36,40 @@ class Dungeon:
                 self.json_dungeon = json.load(file)
 
     def dungeon_control(self, parser, player):
+        """Controls activities within the dungeon.
+
+        This function mostly passes things off to the parse_json_room function from the TextParser object and takes
+            integer it passes back to move through the dungeon or determine if the player died.
+
+        Args:
+            parser: The TextParser object.
+            player: The instance of the Player character object.
+        """
         current_room = 0
-        control_index = 0  # VARIABLE FOR CONTROL INDEX
-        while control_index != 12:  # 12 = DEATH
+        control_index = 0
+        while control_index != 12:
             control_index = parser.parse_json_room(self.json_dungeon["ROOMS"][current_room], player)
-            if 19 < control_index < 24:  # "MOVE" COMMANDS
-                direction = parser.convert_integer_to_direction(control_index - 20)  # REMOVE 20 AND CONVERT TO DIRECTION
-                locked = direction + "_locked"  # CREATE STRING TO CHECK FOR LOCKED DOOR
-                if self.json_dungeon["ROOMS"][current_room]["doors"][direction] == -1:  # CHECK FOR BAD MOVE
+            if 19 < control_index < 24:
+                direction = parser.convert_integer_to_direction(control_index - 20)
+                locked = direction + "_locked"
+                if self.json_dungeon["ROOMS"][current_room]["doors"][direction] == -1:
                     print("Cannot move that way...")
                     continue
-                elif self.json_dungeon["ROOMS"][current_room]["doors"][locked] == 1:  # CHECK FOR LOCKED DOOR
+                elif self.json_dungeon["ROOMS"][current_room]["doors"][locked] == 1:
                     print(direction + " door is locked!\n")
                     continue
                 else:
-                    current_room = self.json_dungeon["ROOMS"][current_room]["doors"][direction]  # MOVE
+                    current_room = self.json_dungeon["ROOMS"][current_room]["doors"][direction]
 
     @staticmethod
     def verify_dungeon_file(file_path):
+        """Verifies the dungeon's JSON file using regular expressions
+
+        Args:
+            file_path: Path to the JSON file.
+
+        Returns: A line_number in the JSON file is something is wrong, or a 0 if everything is fine.
+        """
         line_number = 1
         with open(file_path, "r") as file:
             if not re.search(r'\{', file.readline()):  # {
