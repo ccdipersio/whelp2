@@ -5,11 +5,13 @@ from CreateDungeonUtils import *
 
 #TESTING
 
-parser = TextParser()
-player = Player()
-dungeonCreator = DungeonCreator()
-dungeonCreator.generate_dungeon(parser, player)
+#parser = TextParser()
+#player = Player()
+#dungeonCreator = DungeonCreator()
+#dungeonCreator.generate_dungeon(parser, player)
+
+dungeon = Dungeon("")
+#dungeon.dungeon_control(parser, player)
 
 #
-#dungeon = Dungeon()
-#dungeon.dungeon_control(parser, player)
+#

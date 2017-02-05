@@ -1,14 +1,14 @@
 {
-  "NAME": "ZXCV",
+  "NAME": "ASDF",
   "SIZE": 2,
   "ROOMS": [
     {
       "index": 0,
-      "name": "qwerqwer",
+      "name": "zxcv",
       "item": 1,
       "enemy": 5,
       "doors": {
-        "left": 2,
+        "left": 1,
         "forward": -1,
         "right": -1,
         "backward": -1,
@@ -17,24 +17,24 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "sdfgsdfgsdfgsdfg"
+      "description": "test"
     },
     {
       "index": 1,
-      "name": "tyuityui",
-      "item": 2,
-      "enemy": 6,
+      "name": "xcvb",
+      "item": 1,
+      "enemy": 5,
       "doors": {
         "left": -1,
-        "forward": 3,
-        "right": -1,
+        "forward": -1,
+        "right": 0,
         "backward": -1,
         "left_locked": 0,
         "forward_locked": 0,
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "dfghdfghdfghdfhfdgh"
+      "description": "asdfasdf"
     }
   ]
 }

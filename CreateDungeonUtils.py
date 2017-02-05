@@ -7,42 +7,42 @@ class DungeonCreator:
 
     def generate_dungeon(self, parser, player):
 
-        dungeon_name = input("Dungeon Name: ").upper()
+        dungeon_name = input("Dungeon Name: ").upper()  # GET DUNGEON NAME
 
-        self.createdDungeon = {
+        self.createdDungeon = {  # CREATE SKELETON OF DICTIONARY FOR DUNGEON
             "NAME": dungeon_name,
             "SIZE": 0,
             "ROOMS": {}
 
         }
 
-        go = True
+        go = True  # BOOLEAN FOR WHILE LOOP
         while go:
-            choice = None
+            choice = None  # VARIABLE FOR CHOICE
             while choice != "Y" and choice != "N":
-                choice = input("Add Room? (Y/N): ").upper()
-                if choice == "Y":
-                    self.createdDungeon["SIZE"] += 1
+                choice = input("Add Room? (Y/N): ").upper()  # GET CHOICE
+                if choice == "Y":  # IF YES
+                    self.createdDungeon["SIZE"] += 1  # INCREMENT SIZE
 
-                    room_name = input("Room Name: ")
+                    room_name = input("Room Name: ")  # GET ROOM NAME
 
-                    for index in range(len(parser.reverse_lists[1])):
+                    for index in range(len(parser.reverse_lists[1])):  # PRINT POSSIBLE ITEMS
                         print(str((index + 1)) + ". " + parser.reverse_lists[1][index + 1])
                     item = "$"
-                    while not item.isdigit() or int(item) < 1 or int(item) > len(parser.reverse_lists[1]):
+                    while not item.isdigit() or int(item) < 1 or int(item) > len(parser.reverse_lists[1]):  # GET ITEM
                         item = input("Number of Item (1-" + str(len(parser.reverse_lists[1])) + "): ")
-                    room_item = int(item)
+                    room_item = int(item)  # ADD TO ROOM
 
                     index = 5
-                    while index < len(player.jobs) + 1:
+                    while index < len(player.jobs) + 1:  ## PRINT POSSIBLE ENEMIES
                         print(str((index - 4)) + ". " + player.jobs[index])
                         index += 1
                     enemy = "$"
-                    while not enemy.isdigit() or int(enemy) < 1 or int(enemy) > (len(player.jobs) - 4):
+                    while not enemy.isdigit() or int(enemy) < 1 or int(enemy) > (len(player.jobs) - 4):  # GET ENEMY
                         enemy = input("Number of enemy (1-" + str(len(player.jobs) - 4) + "): ")
                     room_enemy = int(enemy) + 4
 
-                    doors = {
+                    doors = {  # CREATE SKELETON OF DICTIONARY FOR DOORS
                         "left": -1,
                         "forward": -1,
                         "right": -1,
@@ -54,26 +54,24 @@ class DungeonCreator:
                     }
 
                     door_choice = "-1"
-                    while int(door_choice) != 5:
+                    while int(door_choice) != 5:  # PRINT DOOR OPTIONS
                         while not door_choice.isdigit() or int(door_choice) < 1 or int(door_choice) > 5:
                             door_choice = input("1. left\n2. forward\n3. right\n4. backward\n5. done\nDoor Choice "
                                                 "(1-5): ")
-                        if int(door_choice) < 5:
+                        if int(door_choice) < 5:  # IF ADD DOOR
                             destination_room = "-1"
-                            while not destination_room.isdigit() or int(destination_room) < 0:
+                            while not destination_room.isdigit() or int(destination_room) < 0:  # GET DESTINATION ROOM
                                 destination_room = input("Destination Room: ")
                                 doors[parser.convert_integer_to_direction(int(door_choice) - 1)] = int(destination_room)
                                 locked = "$"
-                                while locked != "Y" and locked != "N":
+                                while locked != "Y" and locked != "N":  # ASK IF DOOR IS LOCKED
                                     locked = input("Is door locked? (Y/N): ").upper()
                                 if locked == "Y":
                                     doors[parser.convert_integer_to_direction(int(door_choice) - 1) + "_locked"] = 1
                             door_choice = "-1"
-                        print(str(room_item) + " " + str(room_enemy))
-                        print(doors)
 
-                    room_description = input("Room Description: ")
-                    self.createdDungeon["ROOMS"][self.createdDungeon["SIZE"] - 1] = {
+                    room_description = input("Room Description: ")  # GET ROOM DESCRIPTION
+                    self.createdDungeon["ROOMS"][self.createdDungeon["SIZE"] - 1] = {  # DUMP DATA INTO ROOM
                         "index": self.createdDungeon["SIZE"] - 1, "name": room_name, "item": room_item,
                         "enemy": room_enemy, "doors": {"left": doors["left"], "forward": doors["forward"],
                                                        "right": doors["right"], "backward": doors["backward"],
@@ -82,11 +80,11 @@ class DungeonCreator:
                                                        "right_locked": doors["right_locked"],
                                                        "backward_locked": doors["backward_locked"]},
                         "description": room_description}
-                else:
+                else:  # IF NO, QUIT LOOP
                     go = False
-        print(self.createdDungeon["ROOMS"])
-        self.dump_data_to_file()
+        self.dump_data_to_file()  # PRINT DATA INTO FILE
 
+    # PRINT DATA INTO FILE
     def dump_data_to_file(self):
         file_name = input("File Name (without extension): ")
         file_name_ext = file_name + ".json"
