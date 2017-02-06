@@ -4,9 +4,9 @@
   "ROOMS": [
     {
       "index": 0,
-      "name": "zxcv",
-      "item": 1,
-      "enemy": 5,
+      "name": "asdf",
+      "item": 3,
+      "enemy": 6,
       "doors": {
         "left": 1,
         "forward": -1,
@@ -17,11 +17,11 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "test"
+      "description": "asdf"
     },
     {
       "index": 1,
-      "name": "xcvb",
+      "name": "asdf",
       "item": 1,
       "enemy": 5,
       "doors": {
@@ -34,7 +34,7 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "asdfasdf"
+      "description": "sadf"
     }
   ]
 }

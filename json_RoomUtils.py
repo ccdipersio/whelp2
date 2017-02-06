@@ -24,6 +24,7 @@ class Dungeon:
             line_number = self.verify_dungeon_file(file_path)
             if line_number != 0:
                 print("ERROR AT LINE " + str(line_number) + " in file at path " + file_path + "!!!")
+                self.json_dungeon = None
                 return
             with open(file_path, "r") as file:
                 self.json_dungeon = json.load(file)
@@ -31,6 +32,7 @@ class Dungeon:
             line_number = self.verify_dungeon_file(file_path)
             if line_number != 0:
                 print("ERROR AT LINE " + str(line_number) + " in file at path " + file_path + "!!!")
+                self.json_dungeon = None
                 return
             with open(file_path, "r") as file:
                 self.json_dungeon = json.load(file)
@@ -48,7 +50,11 @@ class Dungeon:
         current_room = 0
         control_index = 0
         while control_index != 12:
-            control_index = parser.parse_json_room(self.json_dungeon["ROOMS"][current_room], player)
+            enemies_remaining = 0
+            for index in range(len(self.json_dungeon["ROOMS"])):
+                if self.json_dungeon["ROOMS"][index]["enemy"] != 0:
+                    enemies_remaining += 1
+            control_index = parser.parse_json_room(self.json_dungeon["ROOMS"][current_room], player, enemies_remaining)
             if 19 < control_index < 24:
                 direction = parser.convert_integer_to_direction(control_index - 20)
                 locked = direction + "_locked"
@@ -60,6 +66,12 @@ class Dungeon:
                     continue
                 else:
                     current_room = self.json_dungeon["ROOMS"][current_room]["doors"][direction]
+            elif control_index == 12:
+                print("You have failed...")
+                return
+            elif control_index == 13:
+                print("The dungeon has been purged of danger!")
+                return
 
     @staticmethod
     def verify_dungeon_file(file_path):
@@ -72,82 +84,82 @@ class Dungeon:
         """
         line_number = 1
         with open(file_path, "r") as file:
-            if not re.search(r'\{', file.readline()):  # {
+            if not re.search(r'\{', file.readline()):
                 return line_number
             line_number += 1
-            if not re.search(r'"NAME": "[A-Z]+",', file.readline()):  # NAME
+            if not re.search(r'"NAME": "[A-Z]+",', file.readline()):
                 return line_number
             line_number += 1
-            if not re.search(r'"SIZE": \d+,', file.readline()):  # SIZE
+            if not re.search(r'"SIZE": \d+,', file.readline()):
                 return line_number
             line_number += 1
-            if not re.search(r'"ROOMS": \[', file.readline()):  # ROOMS
+            if not re.search(r'"ROOMS": \[', file.readline()):
                 return line_number
             line_number += 1
 
             line = file.readline()
             while line != ']':
-                if not re.search(r'{', line):  # {
+                if not re.search(r'{', line):
                     return line_number
                 line_number += 1
-                if not re.search(r'"index": \d+,', file.readline()):  # index
+                if not re.search(r'"index": \d+,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"name": "[A-Za-z]+",', file.readline()):  # name
+                if not re.search(r'"name": "[A-Za-z\s]+",', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"item": \d,', file.readline()):  # item
+                if not re.search(r'"item": \d,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"enemy": \d,', file.readline()):  # enemy
+                if not re.search(r'"enemy": \d,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"doors": \{', file.readline()):  # doors
+                if not re.search(r'"doors": \{', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"left": -?\d,', file.readline()):  # left
+                if not re.search(r'"left": -?\d,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"forward": -?\d,', file.readline()):  # forward
+                if not re.search(r'"forward": -?\d,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"right": -?\d,', file.readline()):  # right
+                if not re.search(r'"right": -?\d,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"backward": -?\d,', file.readline()):  # backward
+                if not re.search(r'"backward": -?\d,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"left_locked": 0|1,', file.readline()):  # left_locked
+                if not re.search(r'"left_locked": 0|1,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"forward_locked": 0|1,', file.readline()):  # forward_locked
+                if not re.search(r'"forward_locked": 0|1,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"right_locked": 0|1,', file.readline()):  # right_locked
+                if not re.search(r'"right_locked": 0|1,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"backward_locked": 0|1,', file.readline()):  # backward_locked
+                if not re.search(r'"backward_locked": 0|1,', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'},', file.readline()):  # }
+                if not re.search(r'},', file.readline()):
                     return line_number
                 line_number += 1
-                if not re.search(r'"description": ".+"', file.readline()):  # description
+                if not re.search(r'"description": ".+"', file.readline()):
                     return line_number
                 line_number += 1
                 prev_line = file.readline()
                 line = file.readline().strip()
                 if not re.search(r']', line):
-                    if not re.search(r'}', prev_line):  # },
+                    if not re.search(r'}', prev_line):
                         return line_number
                 else:
-                    if not re.search(r'}', prev_line):  # }
+                    if not re.search(r'}', prev_line):
                         return line_number
                 line_number += 1
-            if not re.search(r']', line):  # ]
+            if not re.search(r']', line):
                 return line_number
             line_number += 1
-            if not re.search(r'}', file.readline()):  # }
+            if not re.search(r'}', file.readline()):
                 return line_number
             line_number += 1
 

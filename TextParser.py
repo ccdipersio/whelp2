@@ -193,7 +193,7 @@ class TextParser:
                     enemy.give_item(self, player)
                     return True
 
-    def parse_json_room(self, room, player):
+    def parse_json_room(self, room, player, enemies_remaining):
         """Determines the player's desired action with the room context. The function is called parse_json_room to
             differentiate it from parse_room which is an older version of the function implemented before a JSON array
             was used for the dungeon file. The old function is now located in OldComponents/Random\ Pieces\ of\ Old\
@@ -202,6 +202,8 @@ class TextParser:
         Args:
             room: Current room dictionary passed in from dungeon_control.
             player: The instance of the Player character object.
+            enemies_remaining: An integer to keep track of how many enemies remain in the dungeon to track progress to
+                the win condition.
 
         Returns: An integer which will either be 20 to 23 for movement commands or 12 if the player character died.
         """
@@ -246,7 +248,7 @@ class TextParser:
                 if self.words[1] == -1:
                     print("Didn't understand item's name...")
                     continue
-                else:  # VALID ITEM PASSED
+                else:
                     index_in_inventory = self.check_inventory(self.words[1], player.inventory)
                     if index_in_inventory == -1:
                         continue
@@ -290,10 +292,12 @@ class TextParser:
                 else:
                     winner = self.battle_set(player, room["enemy"])
                     if winner:
-                        print("Winner!")
+                        print(player.jobs[room["enemy"]] + " has been slain!")
                         room["enemy"] = 0
+                        if enemies_remaining - 1 <= 0:
+                            return 13
                     else:
-                        print("Game Over!")
+                        print("You have died!")
                         return 12
 
             elif self.words[0] == 8:
@@ -330,7 +334,7 @@ class TextParser:
                 continue
 
     def print_room(self, room):
-        print("In " + room["name"] + "...")
+        print("\nIn " + room["name"] + "...")
         print(room["description"])
         if room["item"] == 0:
             print("\tThere isn't an item here...")

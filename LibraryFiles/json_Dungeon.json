@@ -4,7 +4,7 @@
   "ROOMS": [
     {
       "index": 0,
-      "name": "ONE",
+      "name": "ENTRANCE",
       "item": 3,
       "enemy": 5,
       "doors": {
@@ -17,11 +17,11 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the first room"
+      "description": "You have been sent here by the elders of the town. You must purge this place of evil!"
     },
     {
       "index": 1,
-      "name": "TWO",
+      "name": "MAIN CHAMBER",
       "item": 4,
       "enemy": 5,
       "doors": {
@@ -34,11 +34,11 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the second room"
+      "description": "This room is large, and it smells musty. You see dust dance in the air."
     },
     {
       "index": 2,
-      "name": "THREE",
+      "name": "CORNER CHAMBER",
       "item": 4,
       "enemy": 6,
       "doors": {
@@ -51,28 +51,28 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the third room"
+      "description": "The monsters are getting tougher..."
     },
     {
       "index": 3,
-      "name": "FOUR",
+      "name": "HALLWAY",
       "item": 4,
       "enemy": 6,
       "doors": {
         "left": -1,
         "forward": 5,
         "right": 4,
-        "backward": 3,
+        "backward": 2,
         "left_locked": 0,
         "forward_locked": 0,
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the fourth room"
+      "description": "There's an enemy in this hallway. Gather your courage and dispatch it!"
     },
     {
       "index": 4,
-      "name": "FIVE",
+      "name": "POTIONS CHAMBER",
       "item": 5,
       "enemy": 5,
       "doors": {
@@ -85,11 +85,11 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the fifth room"
+      "description": "This must be where they brew magic potions. There's a dense haze hanging in the air."
     },
     {
       "index": 5,
-      "name": "SIX",
+      "name": "SLEEPING CHAMBER",
       "item": 1,
       "enemy": 6,
       "doors": {
@@ -102,11 +102,11 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the sixth room"
+      "description": "You see a number of crude bed-like structures strewn about around the room."
     },
     {
       "index": 6,
-      "name": "SEVEN",
+      "name": "HALLWAY",
       "item": 2,
       "enemy": 7,
       "doors": {
@@ -119,11 +119,11 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the seventh room"
+      "description": "There monsters here are getting even bigger now..."
     },
     {
       "index": 7,
-      "name": "EIGHT",
+      "name": "GUARD CHAMBER",
       "item": 3,
       "enemy": 7,
       "doors": {
@@ -136,11 +136,11 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the eighth room"
+      "description": "You notice the monsters are getting desperate and feel an intense heat. You must be getting close!"
     },
     {
       "index": 8,
-      "name": "NINE",
+      "name": "LAIR",
       "item": 4,
       "enemy": 8,
       "doors": {
@@ -153,7 +153,7 @@
         "right_locked": 0,
         "backward_locked": 0
       },
-      "description": "this is the ninth room"
+      "description": "This is it! You see the source of the evil here is a dragon! Slay it!"
     }
   ]
 }

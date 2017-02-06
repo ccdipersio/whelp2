@@ -24,8 +24,8 @@ class Character:
 class Player(Character):
     """The class for the player character.
 
-    Besides functions to initialize and an override to print specific details, this also deals with the player's inventory
-        and the player's commands in a battle.
+    Besides functions to initialize and an override to print specific details, this also deals with the player's
+        inventory and the player's commands in a battle.
     """
 
     def __init__(self):

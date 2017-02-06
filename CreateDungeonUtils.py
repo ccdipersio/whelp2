@@ -23,6 +23,9 @@ class DungeonCreator:
             parser: The TextParser object used for its word list dictionaries.
             player: An instance of the Player character class which is used mostly for the jobs dictionary held in its
                 parent object.
+
+        Returns:
+            file_name_ext: Name of the user-defined file into which the dump_data_to_file functions dumps the data
         """
         dungeon_name = input("Dungeon Name: ").upper()
         self.createdDungeon = {
@@ -97,43 +100,44 @@ class DungeonCreator:
                         "description": room_description}
                 else:
                     go = False
-        self.dump_data_to_file()
-
-    def dump_data_to_file(self):
-        """Dumps data from the DungeonCreator's dictionary into a user-defined JSON file"""
         file_name = input("File Name (without extension): ")
         file_name_ext = file_name + ".json"
+        self.dump_data_to_file(file_name_ext)
+        return file_name_ext
+
+    def dump_data_to_file(self, file_name_ext):
+        """Dumps data from the DungeonCreator's dictionary into a user-defined JSON file"""
         relative_path = os.path.dirname(__file__)
-        file = open(os.path.join(relative_path, "UserDefinedFiles", file_name_ext), "w+")
-        file.write('{\n')
-        file.write('  "NAME": ' + '"' + self.createdDungeon["NAME"] + '",\n')
-        file.write('  "SIZE": ' + str(self.createdDungeon["SIZE"]) + ',\n')
-        file.write('  "ROOMS": [\n')
-        for index in range(len(self.createdDungeon["ROOMS"])):
-            file.write('    {\n')
-            file.write('      "index": ' + str(self.createdDungeon["ROOMS"][index]["index"]) + ',\n')
-            file.write('      "name": "' + self.createdDungeon["ROOMS"][index]["name"] + '",\n')
-            file.write('      "item": ' + str(self.createdDungeon["ROOMS"][index]["item"]) + ',\n')
-            file.write('      "enemy": ' + str(self.createdDungeon["ROOMS"][index]["enemy"]) + ',\n')
-            file.write('      "doors": {\n')
-            file.write('        "left": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["left"]) + ',\n')
-            file.write('        "forward": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["forward"]) + ',\n')
-            file.write('        "right": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["right"]) + ',\n')
-            file.write('        "backward": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["backward"]) + ',\n')
-            file.write('        "left_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["left_locked"])
-                       + ',\n')
-            file.write('        "forward_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]
-                                                          ["forward_locked"]) + ',\n')
-            file.write('        "right_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["right_locked"])
-                       + ',\n')
-            file.write('        "backward_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]
-                                                           ["backward_locked"]) + '\n')
-            file.write('      },\n')
-            file.write('      "description": "' + self.createdDungeon["ROOMS"][index]["description"] + '"\n')
-            if index == len(self.createdDungeon["ROOMS"]) - 1:
-                file.write('    }\n')
-            else:
-                file.write('    },\n')
-        file.write('  ]\n')
-        file.write('}')
-        file.close()
+        with open(os.path.join(relative_path, "UserDefinedFiles", file_name_ext), "w+") as file:
+            file.write('{\n')
+            file.write('  "NAME": ' + '"' + self.createdDungeon["NAME"] + '",\n')
+            file.write('  "SIZE": ' + str(self.createdDungeon["SIZE"]) + ',\n')
+            file.write('  "ROOMS": [\n')
+            for index in range(len(self.createdDungeon["ROOMS"])):
+                file.write('    {\n')
+                file.write('      "index": ' + str(self.createdDungeon["ROOMS"][index]["index"]) + ',\n')
+                file.write('      "name": "' + self.createdDungeon["ROOMS"][index]["name"] + '",\n')
+                file.write('      "item": ' + str(self.createdDungeon["ROOMS"][index]["item"]) + ',\n')
+                file.write('      "enemy": ' + str(self.createdDungeon["ROOMS"][index]["enemy"]) + ',\n')
+                file.write('      "doors": {\n')
+                file.write('        "left": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["left"]) + ',\n')
+                file.write('        "forward": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["forward"]) + ',\n')
+                file.write('        "right": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["right"]) + ',\n')
+                file.write('        "backward": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["backward"]) +
+                           ',\n')
+                file.write('        "left_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["left_locked"])
+                           + ',\n')
+                file.write('        "forward_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]
+                                                              ["forward_locked"]) + ',\n')
+                file.write('        "right_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]["right_locked"]
+                                                            ) + ',\n')
+                file.write('        "backward_locked": ' + str(self.createdDungeon["ROOMS"][index]["doors"]
+                                                               ["backward_locked"]) + '\n')
+                file.write('      },\n')
+                file.write('      "description": "' + self.createdDungeon["ROOMS"][index]["description"] + '"\n')
+                if index == len(self.createdDungeon["ROOMS"]) - 1:
+                    file.write('    }\n')
+                else:
+                    file.write('    },\n')
+            file.write('  ]\n')
+            file.write('}')
