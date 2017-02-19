@@ -1,4 +1,4 @@
-<center><h3><b>whelp2</b></h3></center>
+<h3><b>whelp2</b></h3>
 </br>
 "whelp2" is the Python component of my coding sample for my University of Washington application for the master’s degree program in Computational Linguistics.
 
